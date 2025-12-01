@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# IDE settings
+.idea/
+.vscode/
+
+# OS junk
+.DS_Store
