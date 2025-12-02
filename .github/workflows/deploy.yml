@@ -34,6 +34,7 @@ jobs:
         env:
           NODE_ENV: production
           GITHUB_PAGES: true
+          NEXT_PUBLIC_GITHUB_PAGES: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

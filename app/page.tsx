@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { getAssetPath } from "@/lib/utils";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -24,7 +25,7 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/nyc-apartment-1.jpg"
+            src={getAssetPath("/images/nyc-apartment-1.jpg")}
             alt="Luxurious interior design"
             fill
             className="object-cover brightness-75"
@@ -65,7 +66,7 @@ export default function Home() {
             <motion.div variants={fadeInUp}>
               <div className="relative h-[500px] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/ridgewood-1.jpg"
+                  src={getAssetPath("/images/ridgewood-1.jpg")}
                   alt="Modern living room"
                   fill
                   className="object-cover"
