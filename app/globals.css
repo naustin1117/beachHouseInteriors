@@ -5,15 +5,23 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 20 10% 8%;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-white text-gray-900 antialiased;
+    @apply bg-warm-50 text-warm-900 antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-serif tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-warm-900 text-warm-50;
   }
 }
 

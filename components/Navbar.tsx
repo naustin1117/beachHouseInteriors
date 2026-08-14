@@ -3,45 +3,58 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "Work", href: "/portfolio" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
-      className="fixed w-full z-50 bg-white shadow-sm py-4"
+      className={`fixed w-full z-50 transition-all duration-500 ease-out-expo ${
+        isScrolled
+          ? "bg-warm-50/90 backdrop-blur-md py-4"
+          : "bg-transparent py-6"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-2xl font-serif font-bold text-gray-900 hover:text-accent-600 transition-colors"
-          >
-            Beach House Interiors
+          <Link href="/" className="group">
+            <span
+              className={`text-sm font-sans font-medium tracking-widest uppercase transition-colors duration-300 ${
+                isScrolled || pathname !== "/"
+                  ? "text-warm-900"
+                  : "text-white"
+              } group-hover:opacity-60`}
+            >
+              Beach House Interiors
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-12">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-accent-600 transition-colors font-medium"
+                className={`text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  isScrolled || pathname !== "/"
+                    ? "text-warm-700 hover:text-warm-900"
+                    : "text-white/80 hover:text-white"
+                } ${pathname === item.href ? "border-b border-current" : ""}`}
               >
                 {item.name}
               </Link>
@@ -50,30 +63,25 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-accent-600"
+            className={`md:hidden p-2 transition-colors ${
+              isScrolled || pathname !== "/"
+                ? "text-warm-900"
+                : "text-white"
+            }`}
+            aria-label="Toggle menu"
           >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            <div className="w-6 flex flex-col gap-1.5">
+              <span
+                className={`block h-px bg-current transition-all duration-300 ${
+                  isMobileMenuOpen ? "rotate-45 translate-y-[3.5px]" : ""
+                }`}
+              />
+              <span
+                className={`block h-px bg-current transition-all duration-300 ${
+                  isMobileMenuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""
+                }`}
+              />
+            </div>
           </button>
         </div>
       </div>
@@ -81,17 +89,18 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-gray-100"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden absolute top-full left-0 w-full bg-warm-50/95 backdrop-blur-md border-t border-warm-200/50"
           >
-            <div className="px-4 pt-2 pb-4 space-y-1">
+            <div className="px-6 py-8 flex flex-col gap-6">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-accent-600 hover:bg-gray-50 rounded-md transition-colors"
+                  className="text-lg text-warm-700 hover:text-warm-900 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

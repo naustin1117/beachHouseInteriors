@@ -9,34 +9,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f5f7f7',
-          100: '#e8ecec',
-          200: '#d1d9d9',
-          300: '#adb9ba',
-          400: '#829396',
-          500: '#66787b',
-          600: '#556467',
-          700: '#485256',
-          800: '#3f4649',
-          900: '#373c3f',
+        stone: {
+          950: '#0f0e0d',
         },
-        accent: {
-          50: '#faf5f0',
-          100: '#f3e8db',
-          200: '#e5cdb5',
-          300: '#d5ad89',
-          400: '#c68a5d',
-          500: '#bc713f',
-          600: '#ae5d33',
-          700: '#91492c',
-          800: '#753c29',
-          900: '#603324',
+        warm: {
+          50: '#faf9f7',
+          100: '#f5f3f0',
+          200: '#e8e4de',
+          300: '#d4cec4',
+          400: '#b8b0a3',
+          500: '#9c9285',
+          600: '#7a7168',
+          700: '#5c554e',
+          800: '#3d3835',
+          900: '#1f1c1a',
         },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-playfair)', 'Georgia', 'serif'],
+      },
+      letterSpacing: {
+        'widest': '0.2em',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },
